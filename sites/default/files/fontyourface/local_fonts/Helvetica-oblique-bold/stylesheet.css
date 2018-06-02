@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Helvetica';
+  src: url("Helvetica-BoldOblique.eot");
+  src: url("Helvetica-BoldOblique.eot?#iefix") format("embedded-opentype"), url("Helvetica-BoldOblique.ttf") format("truetype"), url("Helvetica-BoldOblique.woff") format("woff"), url("Helvetica-BoldOblique.svg#Helvetica-BoldOblique") format("svg");
+  font-style: oblique;
+  font-weight: bold;
+}

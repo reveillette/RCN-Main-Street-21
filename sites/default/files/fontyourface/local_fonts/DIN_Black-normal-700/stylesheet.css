@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'DIN-Black';
+  src: url("DIN-Black.eot");
+  src: url("DIN-Black.eot?#iefix") format("embedded-opentype"), url("DIN-Black.ttf") format("truetype"), url("DIN-Black.woff") format("woff"), url("DIN-Black.svg#DIN-Black") format("svg");
+  font-style: normal;
+  font-weight: 700;
+}
