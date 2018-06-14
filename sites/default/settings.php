@@ -256,6 +256,7 @@ $databases = array (
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
+      'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock'
     ),
   ),
 );
