@@ -1,3 +1,5 @@
+if (typeof L !== 'undefined') {
+
 // Set Global variables here
 var domain = window.location.hostname;
 var imgFolder = "/sites/all/themes/rcn/img/"
@@ -43,7 +45,8 @@ var overlays = [];
     
 (function ($) {
 
-	$(document).ready(function() { 
+	$(document).on('leaflet.map', function(e, map, lMap) {
+
 		if ($("body").hasClass("page-network")) {
 
 			categories = categories.unique();
@@ -70,11 +73,11 @@ var overlays = [];
 			    // Create layers
 			    if (type == 'point') {
 				    var iconUrl = imgFolder + rcnLayers[i].iconUrl;
-			    	leafletLayers[i] = createMarkerLayer(url, iconUrl);
+			    	leafletLayers[i] = createMarkerLayer(lMap, url, iconUrl);
 			    } else if (type == 'polygon' || type == 'line') {
 				    var symbol = rcnLayers[i].symbol;
 				    var property = rcnLayers[i].property;
-			    	leafletLayers[i] = createLayer(type, url, symbol, property);
+			    	leafletLayers[i] = createLayer(lMap, url, type, symbol, property);
 			    } 		    
 
 			    // Create overlays
@@ -83,14 +86,9 @@ var overlays = [];
 			    
 			    targetOverlay[name] = leafletLayers[i];
 			}
-		}
-	});
 		
-	// Leaflet map modifications and additions
-	$(document).on('leaflet.map', function(e, map, lMap) {
-
-		$(document).ready(function() { 
-			if ($("body").hasClass("page-network")) {
+			// Leaflet map modifications and additions
+			$(document).ready(function() { 
 
 			 	// Move zoom control to a new position
 			    lMap.zoomControl.setPosition('bottomright');
@@ -122,9 +120,9 @@ var overlays = [];
 
 				}
 				  
-		  	}
+		  	});
+		}
 
-		});
 	});
 
 
@@ -154,7 +152,7 @@ function search(nameKey, myArray){
     }
 }
 
-function createMarkerLayer (url, iconUrl, iconSize, iconAnchor, popupAnchor) {
+function createMarkerLayer (lMap, url, iconUrl, iconSize, iconAnchor, popupAnchor) {
 	if (iconSize == null) {
 		iconSize = [15,15];
 	} 
@@ -182,11 +180,21 @@ function createMarkerLayer (url, iconUrl, iconSize, iconAnchor, popupAnchor) {
     		})
     	}
   	});
-	
+
+  	marker.on('loading', function() {
+		console.log('started loading marker layer');
+		lMap.spin(true);
+  	});
+
+  	marker.on('load', function() {
+		console.log('finished loading marker layer');
+		lMap.spin(false);
+  	});
+
 	return marker;
 }
 
-function createLayer (type, url, symbol, property, breaks) {
+function createLayer (lMap, url, type, symbol, property, breaks) {
 	var propVals = [];
 	var min;
 	var max;
@@ -201,7 +209,14 @@ function createLayer (type, url, symbol, property, breaks) {
 		
 	});
 
-	polygon.on('load', function() {
+  	polygon.on('loading', function() {
+		console.log('started loading polygon layer');
+		lMap.spin(true);
+  	});
+
+  	polygon.on('load', function() {
+		console.log('finished loading polygon layer');
+		lMap.spin(false);
 
  	 	polygon.setStyle( function(feature) {
 
@@ -296,4 +311,6 @@ var LinearColorInterpolator = {
         }
         return new Color(newColor);
     }
+}
+
 }

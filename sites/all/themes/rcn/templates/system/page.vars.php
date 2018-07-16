@@ -18,10 +18,11 @@ function rcn_preprocess_page(&$variables) {
   if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
     $variables['content_column_class'] = ' class="col-sm-6"';
   }
-  elseif (!empty($variables['page']['sidebar_first']) || !empty($variables['page']['sidebar_second'])) {
+  elseif (!empty($variables['page']['sidebar_first']) || empty($variables['page']['sidebar_second'])) {
     $variables['content_column_class'] = ' class="col-sm-12"'; // because of floating left sidebar
-  }
-  else {
+  } elseif (empty($variables['page']['sidebar_first']) || !empty($variables['page']['sidebar_second'])) {
+    $variables['content_column_class'] = ' class="col-sm-9"'; // righthand sidebar only
+  } else {
     $variables['content_column_class'] = ' class="col-sm-12"';
   }
 

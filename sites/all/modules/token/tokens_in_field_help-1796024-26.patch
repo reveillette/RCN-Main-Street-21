@@ -1,0 +1,73 @@
+diff --git a/token.module b/token.module
+index d4c91f0..9009d7b 100644
+--- a/token.module
++++ b/token.module
+@@ -271,15 +271,63 @@ function token_form_block_admin_configure_alter(&$form, $form_state) {
+ 
+ /**
+  * Implements hook_widget_form_alter().
++ *
++ * Replaces tokens in field descriptions.
++ * @see i18n_field_field_widget_form_alter()
+  */
+ function token_field_widget_form_alter(&$element, &$form_state, $context) {
+-  if (!empty($element['#description']) && !empty($context['instance']['description'])) {
+-    $instance = $context['instance'];
+-    if (module_exists('i18n_field')) {
+-      $instance = i18n_string_object_translate('field_instance', $instance);
++  if ($form_state['build_info']['form_id'] == 'field_ui_field_edit_form') {
++    return;
++  }
++
++  // Skip if we are missing any of the parameters
++  if (empty($context['field']) || empty($context['instance'])) {
++    return;
++  }
++
++  $field = $context['field'];
++  $instance = $context['instance'];
++
++  // Skip if we have no description or token in the description.
++  if (empty($context['instance']['description']) && strpos($context['instance']['description'], '[') === FALSE) {
++    return;
++  }
++
++  if (module_exists('i18n_field')) {
++    $instance = i18n_string_object_translate('field_instance', $instance);
++  }
++
++  // Get the element to alter. Account for inconsistencies in how the element
++  // is built for different field types.
++  if (isset($element[0]) && count($element) == 1) {
++    // Single-value file fields and image fields.
++    $alter_element = &$element[0];
++  }
++  elseif (isset($element['value'])) {
++    // Number fields. Single-value text fields.
++    $alter_element = &$element['value'];
++  }
++  elseif ($field['type'] == 'entityreference' && isset($element['target_id'])) {
++    // Entityreference fields using the entityreference_autocomplete widget.
++    $alter_element = &$element['target_id'];
++  }
++  else {
++    // All other fields.
++    $alter_element = &$element;
++  }
++
++  // If a subelement has the same title as the parent, translate it instead.
++  // Allows fields such as email and commerce_price to be translated.
++  foreach (element_get_visible_children($element) as $key) {
++    $single_value = ($field['cardinality'] == 1);
++    $has_title = (isset($element['#title']) && isset($element[$key]['#title']));
++    if ($single_value && $has_title && $element[$key]['#title'] == $element['#title']) {
++      $alter_element = &$element[$key];
++      break;
+     }
+-    $element['#description'] = field_filter_xss(token_replace($instance['description']));
+   }
++
++  $alter_element['#description'] = field_filter_xss(token_replace($instance['description']));
+ }
+ 
+ /**

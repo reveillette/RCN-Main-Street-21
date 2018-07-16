@@ -104,11 +104,11 @@
           <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
           <?php endif; ?>
-          <?php if (!empty($secondary_nav)): ?>
-            <?php print render($secondary_nav); ?>
-          <?php endif; ?>
           <?php if (!empty($page['navigation'])): ?>
             <?php print render($page['navigation']); ?>
+          <?php endif; ?>
+          <?php if (!empty($secondary_nav)): ?>
+            <?php print render($secondary_nav); ?>
           <?php endif; ?>
         </nav>
       </div>
@@ -129,11 +129,14 @@
 
   </header> <!-- /#page-header -->
 
+  <!-- Breadcrumbs -->
+  <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
+
   <div class="row">
 
     <!-- left sidebar -->
     <?php if (!empty($page['sidebar_first'])): ?>
-      <aside class="container" role="complementary" id="sidebar-left">
+      <aside class="container sidebar" role="complementary" id="sidebar-left">
         <?php print render($page['sidebar_first']); ?>
       </aside>  <!-- /#sidebar-first -->
     <?php endif; ?>
@@ -142,7 +145,6 @@
       <?php if (!empty($page['highlighted'])): ?>
         <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
       <?php endif; ?>
-      <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
       <a id="main-content"></a>
       <?php print render($title_prefix); ?>
       <?php if (!empty($title)): ?>
@@ -163,7 +165,7 @@
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>
-      <aside class="col-sm-3" role="complementary">
+      <aside class="col-sm-3 sidebar" role="complementary">
         <?php print render($page['sidebar_second']); ?>
       </aside>  <!-- /#sidebar-second -->
     <?php endif; ?>

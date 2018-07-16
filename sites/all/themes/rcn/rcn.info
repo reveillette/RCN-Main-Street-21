@@ -46,9 +46,11 @@ scripts[] = 'bootstrap/assets/javascripts/bootstrap/scrollspy.js'
 scripts[] = 'bootstrap/assets/javascripts/bootstrap/tab.js'
 
 ; Custom scripts
+scripts[] = js/esri-leaflet.js
+scripts[] = js/spin.min.js
+scripts[] = js/leaflet.spin.min.js
 scripts[] = js/functions.js
 scripts[] = js/map.js
-scripts[] = js/esri-leaflet.js
 
 
 ; Disable the CDN provider so compiled source files can be used.
