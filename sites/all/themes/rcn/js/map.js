@@ -146,6 +146,7 @@ var overlays = [];
 					$(this).find("h5").prepend("<input type='checkbox' class='leaflet-control-layers-selector leaflet-showhideall'></input>");
 				}
 
+				// Behavior when show/hide all checkbox is clicked
 				$(".leaflet-showhideall").click(function() {
 					var checkboxes = $(this).parents('h5').siblings('form.leaflet-control-layers-list').find('input[type="checkbox"]');
 
@@ -155,14 +156,12 @@ var overlays = [];
 								this.click();	
 							}
 						});
-						$(this).siblings('span').html("<strong>SHOW ALL</strong>");	// Change text to read SHOW ALL											
 					} else { 							// Box reading SHOW ALL is checked to show all layers
 						checkboxes.each(function(i) {
 							if (this.checked == false) {	// If overlay controls are checked, click to uncheck box and hide
 								this.click();	
 							}
 						});
-						$(this).siblings('span').html("<strong>HIDE ALL</strong>");	// Change text to read HIDE ALL											
 					}	
 				});
 
