@@ -47,8 +47,11 @@ scripts[] = 'bootstrap/assets/javascripts/bootstrap/tab.js'
 
 ; Custom scripts
 scripts[] = js/esri-leaflet.js
+scripts[] = js/esri-leaflet-heatmap.js
+scripts[] = js/leaflet-heat.js
 scripts[] = js/spin.min.js
 scripts[] = js/leaflet.spin.min.js
+scripts[] = js/leaflet.pattern.js
 scripts[] = js/functions.js
 scripts[] = js/map.js
 

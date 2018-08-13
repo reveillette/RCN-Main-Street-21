@@ -27,10 +27,6 @@ var searchSlide = '-200px';
 		// Replace user text with user icon in menu
 		$("#navbar li>a:contains('User')").html("<span class='glyphicon glyphicon-user' aria-hidden='true'></span><span class='caret'></span>");			
 
-		// Add placeholder print button to Project and Best Practice full view page
-		$(".page-node.node-type-project:not('.node-type-edit') #block-system-main .group-left").append("<button class='btn btn-primary' id='download-pdf'>Download PDF</button>");
-		$(".page-node.node-type-best-practice:not('.node-type-edit') #block-system-main .group-left").append("<button class='btn btn-primary' id='download-pdf'>Download PDF</button>");
-
 		// Main menu search bar slideout
 		$("#main-menu-search-link").click(function(e) {
 			searchLink.toggleClass('active');

@@ -134,13 +134,6 @@
 
   <div class="row">
 
-    <!-- left sidebar -->
-    <?php if (!empty($page['sidebar_first'])): ?>
-      <aside class="container sidebar" role="complementary" id="sidebar-left">
-        <?php print render($page['sidebar_first']); ?>
-      </aside>  <!-- /#sidebar-first -->
-    <?php endif; ?>
-
     <section<?php print $content_column_class; ?>>
       <?php if (!empty($page['highlighted'])): ?>
         <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
@@ -161,6 +154,14 @@
       <?php if (!empty($action_links)): ?>
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
+      <!-- left sidebar -->
+      <?php if (!empty($page['sidebar_first'])): ?>
+        <aside class="container sidebar" role="complementary" id="sidebar-left">
+          <?php print render($page['sidebar_first']); ?>
+        </aside>  <!-- /#sidebar-first -->
+      <?php endif; ?>
+
+      <!-- main-content (region-content) -->
       <?php print render($page['content']); ?>
     </section>
 
